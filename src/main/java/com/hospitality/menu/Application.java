@@ -1,13 +1,13 @@
-package com.hospitality.menu.hospitalitymenuservice;
+package com.hospitality.menu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HospitalityMenuServiceApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HospitalityMenuServiceApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

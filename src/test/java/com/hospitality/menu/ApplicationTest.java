@@ -1,10 +1,10 @@
-package com.hospitality.menu.hospitalitymenuservice;
+package com.hospitality.menu;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HospitalityMenuServiceApplicationTests {
+class ApplicationTest {
 
 	@Test
 	void contextLoads() {

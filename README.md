@@ -5,4 +5,4 @@ Application to manage a menu of hospitality services such as restaurants, bar, f
     ./gradlew clean check
 
 ## Resources
-* [Help & Guide about the tech-stack](./HELP.md)
+* Find official documentation about the tech stack on the [Reference Documentation](./docs/reference.md)

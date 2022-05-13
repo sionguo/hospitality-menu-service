@@ -1,7 +1,7 @@
 # Hospitality Menu Service
 Application to manage a menu of hospitality services such as restaurants, bar, food-truck, etc.
 
-## Build application
+## Build project
     ./gradlew clean check
 
 ## Resources

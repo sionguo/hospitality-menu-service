@@ -1,0 +1,39 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+bootJar {
+    enabled = false
+}
+
+version 'unspecified'
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:7.3.3'
+}
+
+task functionalTests() {
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:build/cucumber-report.html',
+                    '--glue', 'com.hospitality.menu.functional.steps',
+                    'src/test/resources']
+        }
+    }
+}
+
+check.configure {
+    dependsOn functionalTests
+}

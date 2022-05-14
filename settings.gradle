@@ -1,3 +1,4 @@
 rootProject.name = 'hospitality-menu-service'
 include 'service'
+include 'service-functional'
 

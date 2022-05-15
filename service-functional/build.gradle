@@ -17,23 +17,11 @@ configurations {
 }
 
 dependencies {
+    testImplementation project(":service")
+    testImplementation 'io.cucumber:cucumber-spring:7.3.3'
     testImplementation 'io.cucumber:cucumber-java:7.3.3'
-}
-
-task functionalTests() {
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = [
-                    '--plugin', 'pretty',
-                    '--plugin', 'html:build/cucumber-report.html',
-                    '--glue', 'com.hospitality.menu.functional.steps',
-                    'src/test/resources']
-        }
-    }
-}
-
-check.configure {
-    dependsOn functionalTests
+    testImplementation 'io.cucumber:cucumber-junit:7.3.3'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

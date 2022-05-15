@@ -1,8 +1,8 @@
 # Hospitality Menu Service
-Application to manage a menu of hospitality services such as restaurants, bar, food-truck, etc.
+Project to manage a menu of hospitality services such as restaurants, bar, food-truck, etc.
 
 ## Build project
-    ./gradlew clean check
+To build all project modules, run `./gradlew clean check`
 
 ## Resources
-* Find official documentation about the tech stack on the [Reference Documentation](./docs/reference.md)
+* Find tech stack documentation [Reference Documentation](./docs/reference.md)

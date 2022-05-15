@@ -1,5 +1,5 @@
-Feature: Health check status
+Feature: Application status
 
-  Scenario: Status should be OK
-    When the user makes a request to the status page
-    Then the service returns a status 200
+  Scenario: health-check success
+    When a user makes a request to /actuator/health
+    Then the service returns a response body showing status as "UP"

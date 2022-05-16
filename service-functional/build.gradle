@@ -10,12 +10,6 @@ bootJar {
 
 version 'unspecified'
 
-configurations {
-    cucumberRuntime {
-        extendsFrom testImplementation
-    }
-}
-
 dependencies {
     testImplementation project(":service")
     testImplementation 'io.cucumber:cucumber-spring:7.3.3'

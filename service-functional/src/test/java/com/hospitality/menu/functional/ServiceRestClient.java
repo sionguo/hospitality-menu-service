@@ -19,13 +19,10 @@ public class ServiceRestClient {
 
     private final RestTemplate restTemplate = new RestTemplateBuilder().build();
 
-    public String getHealth() {
+    public ResponseWrapper getHealth() {
         try {
             RequestEntity<Void> getHealth = RequestEntity.get(URI.create("http://localhost:8080/actuator/health")).build();
-            ResponseEntity<String> response = restTemplate.exchange(getHealth, String.class);
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode statusResponse = objectMapper.readValue(response.getBody(), JsonNode.class);
-            return statusResponse.get("status").asText();
+            return new ResponseWrapper(restTemplate.exchange(getHealth, String.class));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -20,8 +20,12 @@ public class AppRunner {
 
     @PreDestroy
     private void shutdown() {
-        if(application != null) {
+        if (application != null) {
             this.application.close();
         }
+    }
+
+    public boolean isAppRunning() {
+        return application != null && application.isRunning();
     }
 }

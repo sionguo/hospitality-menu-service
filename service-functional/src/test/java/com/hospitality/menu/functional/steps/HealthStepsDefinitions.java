@@ -1,6 +1,8 @@
 package com.hospitality.menu.functional.steps;
 
+import com.hospitality.menu.functional.AppRunner;
 import com.hospitality.menu.functional.ServiceRestClient;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,16 @@ public class HealthStepsDefinitions {
 
     @Autowired
     private ServiceRestClient client;
+
+    @Autowired
+    private AppRunner appRunner;
+
     private String status;
+
+    @Given("^the application is running$")
+    public void theApplicationIsRunning() {
+        assertThat(appRunner.isAppRunning()).isTrue();
+    }
 
     @When("^a user makes a request to \\/actuator\\/health$")
     public void theUserMakesARequestToTheHealthEndpoint() {

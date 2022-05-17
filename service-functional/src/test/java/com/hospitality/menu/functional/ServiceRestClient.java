@@ -1,11 +1,8 @@
 package com.hospitality.menu.functional;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +16,7 @@ public class ServiceRestClient {
 
     private final RestTemplate restTemplate = new RestTemplateBuilder().build();
 
-    public ResponseWrapper getHealth() {
+    public ResponseWrapper healthCheckRequest() {
         try {
             RequestEntity<Void> getHealth = RequestEntity.get(URI.create("http://localhost:8080/actuator/health")).build();
             return new ResponseWrapper(restTemplate.exchange(getHealth, String.class));

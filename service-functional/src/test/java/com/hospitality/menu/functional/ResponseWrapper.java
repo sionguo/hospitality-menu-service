@@ -19,7 +19,7 @@ public class ResponseWrapper {
         }
     }
 
-    public HttpStatus getHttpStatus() {
+    public HttpStatus getStatusCode() {
         return this.httpStatus;
     }
 

@@ -9,10 +9,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 
 import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.OK;
 
 @Scope(SCOPE_CUCUMBER_GLUE)
 public class HealthStepsDefinitions {
@@ -32,16 +32,16 @@ public class HealthStepsDefinitions {
 
     @When("^a user makes a request to \\/actuator\\/health$")
     public void theUserMakesARequestToTheHealthEndpoint() {
-        response = client.getHealth();
+        response = client.healthCheckRequest();
     }
 
-    @Then("the service returns a success status response")
-    public void theServiceReturnsASuccessStatusResponse() {
-        assertThat(response.getHttpStatus()).isEqualTo(OK);
+    @Then("the service returns a {int} status response")
+    public void theServiceReturnsAStatusResponse(int expectedStatusCodeValue) {
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.valueOf(expectedStatusCodeValue));
     }
 
     @And("the response has a body showing application status as {string}")
-    public void theResponseHasABodyShowingApplicationStatusAs(String bodyApplicationStatusValue) {
-        assertThat(response.getBodyAsJson().get("status").asText()).isEqualTo(bodyApplicationStatusValue);
+    public void theResponseHasABodyShowingApplicationStatusAs(String expectedBodyStatusFieldValue) {
+        assertThat(response.getBodyAsJson().get("status").asText()).isEqualTo(expectedBodyStatusFieldValue);
     }
 }

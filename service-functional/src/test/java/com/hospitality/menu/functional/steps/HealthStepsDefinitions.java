@@ -16,13 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Scope(SCOPE_CUCUMBER_GLUE)
 public class HealthStepsDefinitions {
-
     @Autowired
     private ServiceRestClient client;
-
     @Autowired
     private AppRunner appRunner;
-
     private ResponseWrapper response;
 
     @Given("^the application is running$")
@@ -30,18 +27,18 @@ public class HealthStepsDefinitions {
         assertThat(appRunner.isAppRunning()).isTrue();
     }
 
-    @When("^a user makes a request to \\/actuator\\/health$")
-    public void theUserMakesARequestToTheHealthEndpoint() {
-        response = client.healthCheckRequest();
+    @When("a request is made to {string}")
+    public void aRequestIsMadeTo(String relativeURL) {
+        response = client.get(relativeURL);
     }
 
     @Then("the service returns a {int} status response")
-    public void theServiceReturnsAStatusResponse(int expectedStatusCodeValue) {
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.valueOf(expectedStatusCodeValue));
+    public void theServiceReturnsAStatusResponse(int expectedStatusCode) {
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.valueOf(expectedStatusCode));
     }
 
-    @And("the response has a body showing application status as {string}")
-    public void theResponseHasABodyShowingApplicationStatusAs(String expectedBodyStatusFieldValue) {
-        assertThat(response.getBodyAsJson().get("status").asText()).isEqualTo(expectedBodyStatusFieldValue);
+    @And("the response body is {string}")
+    public void theResponseBodyIs(String expectedBody) {
+        assertThat(response.getBody()).isEqualTo(expectedBody);
     }
 }

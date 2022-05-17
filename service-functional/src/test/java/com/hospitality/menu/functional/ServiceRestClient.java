@@ -16,10 +16,10 @@ public class ServiceRestClient {
 
     private final RestTemplate restTemplate = new RestTemplateBuilder().build();
 
-    public ResponseWrapper healthCheckRequest() {
+    public ResponseWrapper get(String relativePath) {
         try {
-            RequestEntity<Void> getHealth = RequestEntity.get(URI.create("http://localhost:8080/actuator/health")).build();
-            return new ResponseWrapper(restTemplate.exchange(getHealth, String.class));
+            RequestEntity<Void> getRequest = RequestEntity.get(URI.create("http://localhost:8080" + relativePath)).build();
+            return new ResponseWrapper(restTemplate.exchange(getRequest, String.class));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

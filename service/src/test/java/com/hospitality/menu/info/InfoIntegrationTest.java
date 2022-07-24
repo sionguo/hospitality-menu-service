@@ -52,4 +52,10 @@ public class InfoIntegrationTest {
         assertThat(infoBody.at("/app/description").asText()).isEqualTo("Hospitality Menu Service " +
                 "is a project to manage hospitality services menus such as restaurants, bar, food-truck, etc.");
     }
+
+    @Test
+    public void infoShouldContainAppJavaVersion() {
+        // Then
+        assertThat(infoBody.at("/app/java/version").asText()).isEqualTo("17");
+    }
 }

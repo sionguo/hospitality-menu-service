@@ -18,6 +18,6 @@ public class InfoStepDefinitions {
     @And("the application info app {string} is {string}")
     public void theApplicationInfoAppMatches(String expectedField, String expectedValue) {
         JsonNode responseBody = responseContext.lastResponseBodyAsJsonNode();
-        assertThat(responseBody.at("/app/" + expectedField).asText()).isEqualTo(expectedValue);
+        assertThat(responseBody.at("/app/" + expectedField.replace(".","/")).asText()).isEqualTo(expectedValue);
     }
 }

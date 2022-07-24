@@ -37,6 +37,6 @@ public class InfoIntegrationTest {
         System.out.println("response = " + response.getBody());
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(body.at("/app/name").asText()).isEqualTo("Hospitality Menu Service");
+        assertThat(body.at("/app/name").asText()).isEqualTo("service");
     }
 }

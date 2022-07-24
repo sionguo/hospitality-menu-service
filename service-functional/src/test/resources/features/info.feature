@@ -4,4 +4,4 @@ Feature: Application Info Page
     Given the application is running
     When a request is made to "/actuator/info"
     Then the application returns a response status 200
-    And the response body is "{\"app\":{\"name\":\"Hospitality Menu Service\"}}"
+    And the response body is "{\"app\":{\"name\":\"service\"}}"

@@ -41,6 +41,20 @@ public class InfoIntegrationTest {
     }
 
     @Test
+    public void infoShouldContainOnlyAppSection() {
+        // Then
+        assertThat(infoBody.size()).isEqualTo(1);
+        assertThat(infoBody.get("app")).isNotNull();
+    }
+
+    @Test
+    public void infoShouldContainAppSectionWithExpectedNumberOfFields() {
+        // Then
+        assertThat(infoBody.get("app").isContainerNode()).isTrue();
+        assertThat(infoBody.get("app").size()).isEqualTo(4);
+    }
+
+    @Test
     public void infoShouldContainAppName() {
         // Then
         assertThat(infoBody.at("/app/name").asText()).isEqualTo("service");
@@ -57,5 +71,11 @@ public class InfoIntegrationTest {
     public void infoShouldContainAppJavaVersion() {
         // Then
         assertThat(infoBody.at("/app/java/version").asText()).isEqualTo("17");
+    }
+
+    @Test
+    public void infoShouldContainAppVersion() {
+        // Then
+        assertThat(infoBody.at("/app/version").asText()).isNotBlank();
     }
 }

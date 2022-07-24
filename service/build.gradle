@@ -6,6 +6,7 @@ plugins {
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+description = 'Hospitality Menu Service is a project to manage hospitality services menus such as restaurants, bar, food-truck, etc.'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'

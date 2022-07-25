@@ -24,7 +24,7 @@ public class HealthIntegrationTest {
     @Test
     public void healthShouldReturnStatusUP() {
         // Given
-        RequestEntity<Void> getHealth = RequestEntity.get("http://localhost:" + port + "/actuator/health").build();
+        RequestEntity<Void> getHealth = RequestEntity.get("http://localhost:" + port + "/management/health").build();
 
         // When
         ResponseEntity<String> response = this.restTemplate.exchange(getHealth, String.class);

@@ -31,7 +31,7 @@ public class InfoIntegrationTest {
     @BeforeEach
     public void getInfoResponse() throws JsonProcessingException {
         // Given
-        RequestEntity<Void> getInfo = RequestEntity.get("http://localhost:" + port + "/actuator/info").build();
+        RequestEntity<Void> getInfo = RequestEntity.get("http://localhost:" + port + "/management/info").build();
 
         // When
         ResponseEntity<String> response = this.restTemplate.exchange(getInfo, String.class);

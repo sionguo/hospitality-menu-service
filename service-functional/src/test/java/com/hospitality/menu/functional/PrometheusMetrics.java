@@ -4,6 +4,7 @@ import org.apache.logging.log4j.util.Strings;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 public class PrometheusMetrics {
 
     private final Map<MetricNotation, BigDecimal> metrics;
+    private final String bodyAsString;
 
     /**
      * @param prometheusMetricsResponse
@@ -25,13 +27,14 @@ public class PrometheusMetrics {
     }
 
     private PrometheusMetrics(String prometheusMetricsResponse) {
-        metrics = Stream.of(prometheusMetricsResponse.split("\n"))
+        this.bodyAsString = prometheusMetricsResponse;
+        this.metrics = Stream.of(prometheusMetricsResponse.split("\n"))
                 .filter(line -> !line.startsWith("#"))
-                .map(metric -> metric.split(" "))
-                .filter(metricValue -> metricValue.length == 2)
-                .collect(Collectors.toUnmodifiableMap(
+                .map(metric -> metric.split("[\s](?=[^\s]*$)"))
+                .collect(Collectors.toMap(
                         metric -> metricNotationValueOf(metric[0]),
                         metric -> metricValueOf(metric[1])));
+        System.out.println(metrics);
     }
 
     private static MetricNotation metricNotationValueOf(String metricNotationAsString) {
@@ -46,8 +49,20 @@ public class PrometheusMetrics {
         return this.metrics.keySet().stream().anyMatch(notation -> notation.hasName(name));
     }
 
+    public long numberOfMetricsMatchingName(String name) {
+        List<MetricNotation> metricNotations = this.metrics.keySet().stream()
+                .filter(notation -> notation.hasName(name))
+                .toList();
+        return metricNotations
+                .size();
+    }
+
     public boolean hasMetric(MetricNotation metricNotation) {
         return metrics.containsKey(metricNotation);
+    }
+
+    public boolean metricHasValue(MetricNotation metricNotation, BigDecimal expectedValue) {
+        return metrics.get(metricNotation).compareTo(expectedValue) == 0;
     }
 
     @Override
@@ -55,6 +70,10 @@ public class PrometheusMetrics {
         return "PrometheusMetrics{" +
                 "metrics=" + metrics +
                 '}';
+    }
+
+    public String toRawBodyString() {
+        return bodyAsString;
     }
 
     /**
@@ -79,6 +98,7 @@ public class PrometheusMetrics {
         }
 
         private static MetricNotation valueOf(String metricNotationAsString){
+            System.out.println("metricNotationAsString = " + metricNotationAsString);
             String[] metricNotation = metricNotationAsString.split("\\{");
             if(metricNotation.length == 1) {
                 return new MetricNotation(metricNotation[0]);
@@ -88,6 +108,7 @@ public class PrometheusMetrics {
         }
 
         private static Map<String, String> parseLabelsAsMap(String metricNotationLabelsAsString) {
+            System.out.println("metricNotationLabelsAsString = " + metricNotationLabelsAsString);
             return Stream.of(metricNotationLabelsAsString.substring(0, metricNotationLabelsAsString.indexOf("}") - 1).split(","))
                     .filter(Strings::isNotBlank)
                     .map(metric -> metric.split("="))

@@ -19,6 +19,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:4.6.1'
 }
 
+springBoot {
+    buildInfo()
+}
+
 processResources {
     expand(project.properties)
 }

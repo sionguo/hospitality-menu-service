@@ -41,10 +41,11 @@ public class InfoIntegrationTest {
     }
 
     @Test
-    public void infoShouldContainOnlyAppSection() {
+    public void infoShouldContainsTwoSections() {
         // Then
-        assertThat(infoBody.size()).isEqualTo(1);
+        assertThat(infoBody.size()).isEqualTo(2);
         assertThat(infoBody.get("app")).isNotNull();
+        assertThat(infoBody.get("build")).isNotNull();
     }
 
     @Test
@@ -52,6 +53,13 @@ public class InfoIntegrationTest {
         // Then
         assertThat(infoBody.get("app").isContainerNode()).isTrue();
         assertThat(infoBody.get("app").size()).isEqualTo(4);
+    }
+
+    @Test
+    public void infoShouldContainBuildSectionWithExpectedNumberOfFields() {
+        // Then
+        assertThat(infoBody.get("build").isContainerNode()).isTrue();
+        assertThat(infoBody.get("build").size()).isEqualTo(5);
     }
 
     @Test
@@ -76,6 +84,43 @@ public class InfoIntegrationTest {
     @Test
     public void infoShouldContainAppVersion() {
         // Then
-        assertThat(infoBody.at("/app/version").asText()).isNotBlank();
+        assertThat(infoBody.at("/app/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
+    }
+
+    @Test
+    public void infoShouldContainBuildName() {
+        // Then
+        assertThat(infoBody.at("/build/name").asText()).isEqualTo("service");
+    }
+
+    @Test
+    public void infoShouldContainBuildGroup() {
+        // Then
+        assertThat(infoBody.at("/build/group").asText()).isEqualTo("com.hospitality.menu");
+    }
+
+    @Test
+    public void infoShouldContainBuildArtifact() {
+        // Then
+        assertThat(infoBody.at("/build/artifact").asText()).isEqualTo("service");
+    }
+
+    @Test
+    public void infoShouldContainBuildVersion() {
+        // Then
+        assertThat(infoBody.at("/build/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
+    }
+
+    @Test
+    public void infoShouldContainBuildTime() {
+        // Then
+        assertThat(infoBody.at("/build/time").asText()).matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(.\\d{3})Z$");
+    }
+
+    @Test
+    public void infoShouldContainAppVersionSameAsBuildVersion() {
+        // Then
+        assertThat(infoBody.at("/app/version").asText())
+                .isEqualTo(infoBody.at("/build/version").asText());
     }
 }

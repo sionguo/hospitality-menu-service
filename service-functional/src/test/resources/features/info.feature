@@ -1,10 +1,21 @@
 Feature: Application Info Page
 
-  Scenario: It should display the application info
+  Background:
     Given the application is running
-    When a request is made to '/management/info'
-    Then the application returns a response status 200
+    And a request is made to '/management/info'
+    And the application returns a response status 200
+
+  Scenario: It should display the app section
+    Given the application info contains 'app' node
     And the application info app 'name' is 'service'
     And the application info app 'description' is 'Hospitality Menu Service is a project to manage hospitality services menus such as restaurants, bar, food-truck, etc.'
     And the application info app 'java.version' is '17'
-    And the application info contains app version
+    And the application info app contains version
+
+  Scenario: It should display the build section
+    Given the application info contains 'build' node
+    And the application info build 'name' is 'service'
+    And the application info build 'group' is 'com.hospitality.menu'
+    And the application info build 'artifact' is 'service'
+    And the application info build contains version
+    And the application info build contains build time

@@ -8,24 +8,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ResponseContext {
-    private ResponseWrapper lastResponse;
+  private ResponseWrapper lastResponse;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-    public ResponseWrapper lastResponse() {
-        return lastResponse;
+  public ResponseWrapper lastResponse() {
+    return lastResponse;
+  }
+
+  public JsonNode lastResponseBodyAsJsonNode() {
+    try {
+      return objectMapper.readTree(lastResponse.getBody());
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public JsonNode lastResponseBodyAsJsonNode() {
-        try {
-            return objectMapper.readTree(lastResponse.getBody());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void setLastResponse(ResponseWrapper lastResponse) {
-        this.lastResponse = lastResponse;
-    }
+  public void setLastResponse(ResponseWrapper lastResponse) {
+    this.lastResponse = lastResponse;
+  }
 }

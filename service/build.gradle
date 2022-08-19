@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
     id 'jacoco'
+    id 'checkstyle'
 }
 
 version = '0.0.1-SNAPSHOT'
@@ -32,13 +33,14 @@ tasks.named('test') {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = '0.8.8'
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 test {
     finalizedBy jacocoTestReport
 }
+
 jacocoTestReport {
     dependsOn test
     reports {

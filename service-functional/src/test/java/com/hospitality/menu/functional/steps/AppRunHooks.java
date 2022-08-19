@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppRunHooks {
 
-    @Autowired
-    private AppRunner appRunner;
+  @Autowired private AppRunner appRunner;
 
-    @Before
-    public void startServiceInTest() {
-        appRunner.startApp();
-    }
+  @Before
+  public void startServiceInTest() {
+    appRunner.startApp();
+  }
 }

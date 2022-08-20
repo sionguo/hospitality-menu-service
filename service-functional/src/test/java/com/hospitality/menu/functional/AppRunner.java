@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Configuration
 @Service
+@SuppressWarnings("PMD.UnusedPrivateMethod")
 public class AppRunner {
 
   private ConfigurableApplicationContext application;

@@ -13,14 +13,15 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class HealthIntegrationTest {
+@SuppressWarnings({"PMD.UnusedLocalVariable", "PMD.UnusedPrivateMethod"})
+class HealthIntegrationTest {
 
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;
 
   @Test
-  public void healthShouldReturnStatusIsUp() {
+  void healthShouldReturnHttpStatusOk() {
     // Given
     RequestEntity<Void> getHealth =
         RequestEntity.get("http://localhost:" + port + "/management/health").build();
@@ -30,6 +31,18 @@ public class HealthIntegrationTest {
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+
+  @Test
+  void healthShouldReturnResponseBodyStatusIsUp() {
+    // Given
+    RequestEntity<Void> getHealth =
+        RequestEntity.get("http://localhost:" + port + "/management/health").build();
+
+    // When
+    ResponseEntity<String> response = this.restTemplate.exchange(getHealth, String.class);
+
+    // Then
     assertThat(response.getBody())
         .isEqualTo("{\"status\":\"UP\",\"groups\":[\"liveness\",\"readiness\"]}");
   }

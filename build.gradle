@@ -3,8 +3,13 @@ allprojects {
 }
 
 subprojects {
+	apply plugin: 'pmd'
 	repositories {
 		mavenCentral()
+	}
+	pmd {
+		ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
+		ruleSets = []
 	}
 }
 

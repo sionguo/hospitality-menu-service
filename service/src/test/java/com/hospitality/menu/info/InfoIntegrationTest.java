@@ -17,7 +17,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class InfoIntegrationTest {
+class InfoIntegrationTest {
 
   private final ObjectMapper objectMapper = new ObjectMapper();
   @LocalServerPort private int port;
@@ -25,7 +25,7 @@ public class InfoIntegrationTest {
   private JsonNode infoBody;
 
   @BeforeEach
-  public void getInfoResponse() throws JsonProcessingException {
+  void getInfoResponse() throws JsonProcessingException {
     // Given
     RequestEntity<Void> getInfo =
         RequestEntity.get("http://localhost:" + port + "/management/info").build();
@@ -38,43 +38,55 @@ public class InfoIntegrationTest {
   }
 
   @Test
-  public void infoShouldContainThreeSections() {
+  void infoShouldContainThreeSections() {
     // Then
     assertThat(infoBody.size()).isEqualTo(3);
+  }
+
+  @Test
+  void infoShouldContainAppSection() {
+    // Then
     assertThat(infoBody.get("app")).isNotNull();
+  }
+
+  @Test
+  void infoShouldContainBuildSection() {
+    // Then
     assertThat(infoBody.get("build")).isNotNull();
+  }
+
+  @Test
+  void infoShouldContainGitSection() {
+    // Then
     assertThat(infoBody.get("git")).isNotNull();
   }
 
   @Test
-  public void infoShouldContainAppSectionWithExpectedNumberOfFields() {
+  void infoShouldContainAppSectionWithExpectedNumberOfFields() {
     // Then
-    assertThat(infoBody.get("app").isContainerNode()).isTrue();
     assertThat(infoBody.get("app").size()).isEqualTo(4);
   }
 
   @Test
-  public void infoShouldContainBuildSectionWithExpectedNumberOfFields() {
+  void infoShouldContainBuildSectionWithExpectedNumberOfFields() {
     // Then
-    assertThat(infoBody.get("build").isContainerNode()).isTrue();
     assertThat(infoBody.get("build").size()).isEqualTo(5);
   }
 
   @Test
-  public void infoShouldContainGitSectionWithExpectedNumberOfFields() {
+  void infoShouldContainGitSectionWithExpectedNumberOfFields() {
     // Then
-    assertThat(infoBody.get("git").isContainerNode()).isTrue();
     assertThat(infoBody.get("git").size()).isEqualTo(2);
   }
 
   @Test
-  public void infoShouldContainAppName() {
+  void infoShouldContainAppName() {
     // Then
     assertThat(infoBody.at("/app/name").asText()).isEqualTo("service");
   }
 
   @Test
-  public void infoShouldContainAppDescription() {
+  void infoShouldContainAppDescription() {
     // Then
     assertThat(infoBody.at("/app/description").asText())
         .isEqualTo(
@@ -84,77 +96,87 @@ public class InfoIntegrationTest {
   }
 
   @Test
-  public void infoShouldContainAppJavaVersion() {
+  void infoShouldContainAppJavaVersion() {
     // Then
     assertThat(infoBody.at("/app/java/version").asText()).isEqualTo("17");
   }
 
   @Test
-  public void infoShouldContainAppVersion() {
+  void infoShouldContainAppVersion() {
     // Then
     assertThat(infoBody.at("/app/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
   }
 
   @Test
-  public void infoShouldContainBuildName() {
+  void infoShouldContainBuildName() {
     // Then
     assertThat(infoBody.at("/build/name").asText()).isEqualTo("service");
   }
 
   @Test
-  public void infoShouldContainBuildGroup() {
+  void infoShouldContainBuildGroup() {
     // Then
     assertThat(infoBody.at("/build/group").asText()).isEqualTo("com.hospitality.menu");
   }
 
   @Test
-  public void infoShouldContainBuildArtifact() {
+  void infoShouldContainBuildArtifact() {
     // Then
     assertThat(infoBody.at("/build/artifact").asText()).isEqualTo("service");
   }
 
   @Test
-  public void infoShouldContainBuildVersion() {
+  void infoShouldContainBuildVersion() {
     // Then
     assertThat(infoBody.at("/build/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
   }
 
   @Test
-  public void infoShouldContainBuildTime() {
+  void infoShouldContainBuildTime() {
     // Then
     assertThat(infoBody.at("/build/time").asText())
         .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(.\\d{3})Z$");
   }
 
   @Test
-  public void infoShouldContainGitBranch() {
+  void infoShouldContainGitBranch() {
     // Then
     assertThat(infoBody.at("/git/branch").asText()).isEqualTo("main");
   }
 
   @Test
-  public void infoShouldContainGitCommitSections() {
+  void infoShouldContainGitCommitSection() {
     // Then
     assertThat(infoBody.at("/git/commit").size()).isEqualTo(2);
+  }
+
+  @Test
+  void infoShouldContainGitCommitIdSection() {
+    // Then
     assertThat(infoBody.at("/git/commit/id")).isNotNull();
+  }
+
+  @Test
+  void infoShouldContainGitCommitTimeSection() {
+    // Then
     assertThat(infoBody.at("/git/commit/time")).isNotNull();
   }
 
   @Test
-  public void infoShouldContainGitCommitShortId() {
+  void infoShouldContainGitCommitShortId() {
     // Then
     assertThat(infoBody.at("/git/commit/id").asText()).matches("^\\w{7}$");
   }
 
   @Test
-  public void infoShouldContainGitCommitTime() {
+  void infoShouldContainGitCommitTime() {
     // Then
     assertThat(infoBody.at("/git/commit/time").asText())
         .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$");
   }
 
   @Test
-  public void infoShouldContainAppVersionSameAsBuildVersion() {
+  void infoShouldContainAppVersionSameAsBuildVersion() {
     // Then
     assertThat(infoBody.at("/app/version").asText())
         .isEqualTo(infoBody.at("/build/version").asText());

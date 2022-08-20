@@ -13,11 +13,12 @@ To build and run the tests for all project modules, run `./gradlew clean check`
   added once business logic is added i.e. downstream response metrics, latency metrics etc.)
 - Service Functional Tests. `./gradlew :service-functional:test`
 
-## Checkstyle
-Uses [Gradle Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
+## Static Code Analysis
+* [Checkstyle](https://checkstyle.sourceforge.io). Uses [Gradle Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html) 
 configured with [Google's Style](https://checkstyle.sourceforge.io/google_style.html)
+* [PMD](https://pmd.github.io/)
 
-### IntelliJ Setup
+### IntelliJ's Checkstyle Setup
 - Add the Google Code Style for IntelliJ by adding the
 [intellij-java-google-style.xml](https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml) 
 at _IntelliJIDEA > Preferences... > Editor > Code Style > Java > Scheme_

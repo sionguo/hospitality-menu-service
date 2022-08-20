@@ -10,6 +10,7 @@ import org.apache.logging.log4j.util.Strings;
 
 public class PrometheusMetrics {
 
+  private static final int LENGTH_OF_METRIC_NOTATION_WITH_NO_LABELS = 1;
   private final Map<MetricNotation, BigDecimal> metrics;
   private final String bodyAsString;
 
@@ -23,7 +24,6 @@ public class PrometheusMetrics {
                 Collectors.toMap(
                     metric -> metricNotationValueOf(metric[0]),
                     metric -> metricValueOf(metric[1])));
-    System.out.println(metrics);
   }
 
   /**
@@ -37,7 +37,13 @@ public class PrometheusMetrics {
   }
 
   private static MetricNotation metricNotationValueOf(String metricNotationAsString) {
-    return MetricNotation.valueOf(metricNotationAsString);
+    String[] metricNotation = metricNotationAsString.split("\\{");
+    if (metricNotation.length == LENGTH_OF_METRIC_NOTATION_WITH_NO_LABELS) {
+      return new MetricNotation(metricNotation[0]);
+    } else {
+      return new MetricNotation(
+          metricNotation[0], MetricNotation.parseLabelsAsMap(metricNotation[1]));
+    }
   }
 
   private static BigDecimal metricValueOf(String metricValueAsString) {
@@ -93,18 +99,8 @@ public class PrometheusMetrics {
       return new MetricNotation(name, labels);
     }
 
-    private static MetricNotation valueOf(String metricNotationAsString) {
-      System.out.println("metricNotationAsString = " + metricNotationAsString);
-      String[] metricNotation = metricNotationAsString.split("\\{");
-      if (metricNotation.length == 1) {
-        return new MetricNotation(metricNotation[0]);
-      } else {
-        return new MetricNotation(metricNotation[0], parseLabelsAsMap(metricNotation[1]));
-      }
-    }
-
+    @SuppressWarnings("PMD.UnusedPrivateMethod")
     private static Map<String, String> parseLabelsAsMap(String metricNotationLabelsAsString) {
-      System.out.println("metricNotationLabelsAsString = " + metricNotationLabelsAsString);
       return Stream.of(
               metricNotationLabelsAsString
                   .substring(0, metricNotationLabelsAsString.indexOf("}") - 1)

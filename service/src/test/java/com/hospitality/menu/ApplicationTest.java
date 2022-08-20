@@ -8,14 +8,14 @@ import org.mockito.Mockito;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class ApplicationTest {
+class ApplicationTest {
   @Test
-  public void shouldBeAnnotatedWithExpectedSpringBootApplicationAnnotation() {
+  void shouldBeAnnotatedWithExpectedSpringBootApplicationAnnotation() {
     assertThat(Application.class).hasAnnotation(SpringBootApplication.class);
   }
 
   @Test
-  public void main_shouldCallRunSpringApplicationWithAnEmptyListOfArguments() {
+  void main_shouldCallRunSpringApplicationWithAnEmptyListOfArguments() {
     try (MockedStatic<SpringApplication> springApplication =
         Mockito.mockStatic(SpringApplication.class)) {
       Application.main(new String[] {});
@@ -24,7 +24,7 @@ public class ApplicationTest {
   }
 
   @Test
-  public void main_shouldCallRunSpringApplicationWithPassedArguments() {
+  void main_shouldCallRunSpringApplicationWithPassedArguments() {
     try (MockedStatic<SpringApplication> springApplication =
         Mockito.mockStatic(SpringApplication.class)) {
       Application.main(new String[] {"arg1", "arg2"});

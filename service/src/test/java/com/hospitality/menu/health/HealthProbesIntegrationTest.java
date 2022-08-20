@@ -19,12 +19,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HealthProbesIntegrationTest {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+class HealthProbesIntegrationTest {
 
   @Autowired private MockMvc mockMvc;
 
   @Test
-  public void healthLivenessProbeShouldReturnStatusIsUp() throws Exception {
+  void healthLivenessProbeShouldReturnStatusIsUp() throws Exception {
     AvailabilityChangeEvent.publish(
         requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
         LivenessState.CORRECT);
@@ -36,7 +37,7 @@ public class HealthProbesIntegrationTest {
   }
 
   @Test
-  public void healthLivenessProbeShouldReturnStatusIsDown() throws Exception {
+  void healthLivenessProbeShouldReturnStatusIsDown() throws Exception {
     AvailabilityChangeEvent.publish(
         requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
         LivenessState.BROKEN);
@@ -48,7 +49,7 @@ public class HealthProbesIntegrationTest {
   }
 
   @Test
-  public void healthReadinessProbeShouldReturnStatusIsUp() throws Exception {
+  void healthReadinessProbeShouldReturnStatusIsUp() throws Exception {
     AvailabilityChangeEvent.publish(
         requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
         ReadinessState.ACCEPTING_TRAFFIC);
@@ -60,7 +61,7 @@ public class HealthProbesIntegrationTest {
   }
 
   @Test
-  public void healthReadinessProbeShouldReturnStatusIsOutOfService() throws Exception {
+  void healthReadinessProbeShouldReturnStatusIsOutOfService() throws Exception {
     AvailabilityChangeEvent.publish(
         requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
         ReadinessState.REFUSING_TRAFFIC);

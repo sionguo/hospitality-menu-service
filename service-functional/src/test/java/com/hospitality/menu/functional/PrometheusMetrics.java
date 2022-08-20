@@ -28,7 +28,7 @@ public class PrometheusMetrics {
 
   /**
    * @param prometheusMetricsResponse Parses prometheus metrics response where each line format is:
-   *     <metric name>{<label name>=<label value>, ...} <metric value>
+   *     metric_name{label_name=label_value, ...} metric_value
    *     <p>Metric notation: The metric name and a set of optional labels Metric value: The metric
    *     value
    */
@@ -126,12 +126,19 @@ public class PrometheusMetrics {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {
+        return true;
+      }
+
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       MetricNotation that = (MetricNotation) o;
 
-      if (!name.equals(that.name)) return false;
+      if (!name.equals(that.name)) {
+        return false;
+      }
       return labels != null ? labels.equals(that.labels) : that.labels == null;
     }
 

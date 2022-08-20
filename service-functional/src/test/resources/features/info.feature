@@ -2,7 +2,7 @@ Feature: Application Info Page
 
   Background:
     Given the application is running
-    And a request is made to '/management/info'
+    And a get request is made to '/management/info'
     And the application returns a response status 200
 
   Scenario: It should display the app section

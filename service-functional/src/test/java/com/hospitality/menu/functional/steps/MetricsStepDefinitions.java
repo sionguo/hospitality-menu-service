@@ -18,8 +18,8 @@ public class MetricsStepDefinitions {
     throw new UnsupportedOperationException("Not yet implemented");
   }
 
-  @And(
-      "the application contains metric notation {string} with value {string} and name-value pair labels:")
+  @And("the application contains metric notation {string} with value {string} "
+      + "and name-value pair labels:")
   public void theApplicationContainsMetricNotation(
       String name, String value, Map<String, String> labels) {
     PrometheusMetrics prometheusMetrics = PrometheusMetrics.valueOf(responseContext.lastResponse());

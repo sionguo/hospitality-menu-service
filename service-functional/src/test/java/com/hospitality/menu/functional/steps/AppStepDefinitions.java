@@ -25,13 +25,13 @@ public class AppStepDefinitions {
     assertThat(appRunner.isAppRunning()).isTrue();
   }
 
-  @When("a request is made to {string}")
-  public void aRequestIsMadeTo(String relativeURL) {
-    responseContext.setLastResponse(client.get(relativeURL));
+  @When("a get request is made to {string}")
+  public void doHttpGetWith(String relativeUrlPath) {
+    responseContext.setLastResponse(client.get(relativeUrlPath));
   }
 
   @Then("the application returns a response status {int}")
-  public void theApplicationReturnsAResponseStatus(int expectedStatusCode) {
+  public void theApplicationReturnsResponseStatus(int expectedStatusCode) {
     assertThat(responseContext.lastResponse().getStatusCode())
         .isEqualTo(HttpStatus.valueOf(expectedStatusCode));
   }

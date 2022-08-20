@@ -4,7 +4,14 @@ Project to manage a menu of hospitality services such as restaurants, bar, food-
 ![CI](https://github.com/rauligs/hospitality-menu-service/actions/workflows/ci.yml/badge.svg)
 
 ## Build project
-To build all project modules, run `./gradlew clean check`
+To build and run the tests for all project modules, run `./gradlew clean check`
+
+## Testing
+- Service Unit and Integration Tests. `./gradlew :service:test`
+  - At the moment, considering there are no source code but configuration you'll find most of the
+  tests to be Integration Tests. Also metrics has no integration tests but only functional (to be
+  added once business logic is added i.e. downstream response metrics, latency metrics etc.)
+- Service Functional Tests. `./gradlew :service-functional:test`
 
 ## Checkstyle
 Uses [Gradle Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)

@@ -1,6 +1,5 @@
 package com.hospitality.menu.health;
 
-import static java.util.Objects.requireNonNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,8 +26,7 @@ class HealthProbesIntegrationTest {
   @Test
   void healthLivenessProbeShouldReturnStatusIsUp() throws Exception {
     AvailabilityChangeEvent.publish(
-        requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
-        LivenessState.CORRECT);
+        mockMvc.getDispatcherServlet().getWebApplicationContext(), LivenessState.CORRECT);
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/management/health/liveness"))
@@ -39,8 +37,7 @@ class HealthProbesIntegrationTest {
   @Test
   void healthLivenessProbeShouldReturnStatusIsDown() throws Exception {
     AvailabilityChangeEvent.publish(
-        requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
-        LivenessState.BROKEN);
+        mockMvc.getDispatcherServlet().getWebApplicationContext(), LivenessState.BROKEN);
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/management/health/liveness"))
@@ -51,7 +48,7 @@ class HealthProbesIntegrationTest {
   @Test
   void healthReadinessProbeShouldReturnStatusIsUp() throws Exception {
     AvailabilityChangeEvent.publish(
-        requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
+        mockMvc.getDispatcherServlet().getWebApplicationContext(),
         ReadinessState.ACCEPTING_TRAFFIC);
 
     mockMvc
@@ -63,8 +60,7 @@ class HealthProbesIntegrationTest {
   @Test
   void healthReadinessProbeShouldReturnStatusIsOutOfService() throws Exception {
     AvailabilityChangeEvent.publish(
-        requireNonNull(mockMvc.getDispatcherServlet().getWebApplicationContext()),
-        ReadinessState.REFUSING_TRAFFIC);
+        mockMvc.getDispatcherServlet().getWebApplicationContext(), ReadinessState.REFUSING_TRAFFIC);
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/management/health/readiness"))

@@ -17,6 +17,7 @@ To build and run the tests for all project modules, run `./gradlew clean check`
 * [Checkstyle](https://checkstyle.sourceforge.io). Uses [Gradle Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html) 
 configured with [Google's Style](https://checkstyle.sourceforge.io/google_style.html)
 * [PMD](https://pmd.github.io/)
+* [SpotBugs](https://spotbugs.github.io/)
 
 ### IntelliJ's Checkstyle Setup
 - Add the Google Code Style for IntelliJ by adding the

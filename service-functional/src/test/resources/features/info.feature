@@ -19,3 +19,9 @@ Feature: Application Info Page
     And the application info build 'artifact' is 'service'
     And the application info build contains version
     And the application info build contains build time
+
+  Scenario: It should display the git section
+    Given the application info contains 'git' node
+    And the application info git 'branch' is 'main'
+    And the application info git contains commit id
+    And the application info git contains commit time

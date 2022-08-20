@@ -53,4 +53,24 @@ public class InfoStepDefinitions {
     assertThat(responseBody.at("/build/time").asText())
         .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(.\\d{3})Z$");
   }
+
+  @And("the application info git {string} is {string}")
+  public void theApplicationInfoGitMatches(String expectedField, String expectedValue) {
+    JsonNode responseBody = responseContext.lastResponseBodyAsJsonNode();
+    assertThat(responseBody.at("/git/" + expectedField.replace(".", "/")).asText())
+        .isEqualTo(expectedValue);
+  }
+
+  @And("the application info git contains commit id")
+  public void theApplicationInfoGitContainsCommitId() {
+    JsonNode responseBody = responseContext.lastResponseBodyAsJsonNode();
+    assertThat(responseBody.at("/commit/id").asText()).matches("^\\w{7}$");
+  }
+
+  @And("the application info git contains commit time")
+  public void theApplicationInfoGitContainsCommitTime() {
+    JsonNode responseBody = responseContext.lastResponseBodyAsJsonNode();
+    assertThat(responseBody.at("/git/commit/time").asText())
+        .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$");
+  }
 }

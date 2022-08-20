@@ -20,8 +20,7 @@ import org.springframework.http.ResponseEntity;
 public class InfoIntegrationTest {
 
   private final ObjectMapper objectMapper = new ObjectMapper();
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
   @Autowired private TestRestTemplate restTemplate;
   private JsonNode infoBody;
 
@@ -39,11 +38,12 @@ public class InfoIntegrationTest {
   }
 
   @Test
-  public void infoShouldContainsTwoSections() {
+  public void infoShouldContainThreeSections() {
     // Then
-    assertThat(infoBody.size()).isEqualTo(2);
+    assertThat(infoBody.size()).isEqualTo(3);
     assertThat(infoBody.get("app")).isNotNull();
     assertThat(infoBody.get("build")).isNotNull();
+    assertThat(infoBody.get("git")).isNotNull();
   }
 
   @Test
@@ -58,6 +58,13 @@ public class InfoIntegrationTest {
     // Then
     assertThat(infoBody.get("build").isContainerNode()).isTrue();
     assertThat(infoBody.get("build").size()).isEqualTo(5);
+  }
+
+  @Test
+  public void infoShouldContainGitSectionWithExpectedNumberOfFields() {
+    // Then
+    assertThat(infoBody.get("git").isContainerNode()).isTrue();
+    assertThat(infoBody.get("git").size()).isEqualTo(2);
   }
 
   @Test
@@ -117,6 +124,33 @@ public class InfoIntegrationTest {
     // Then
     assertThat(infoBody.at("/build/time").asText())
         .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(.\\d{3})Z$");
+  }
+
+  @Test
+  public void infoShouldContainGitBranch() {
+    // Then
+    assertThat(infoBody.at("/git/branch").asText()).isEqualTo("main");
+  }
+
+  @Test
+  public void infoShouldContainGitCommitSections() {
+    // Then
+    assertThat(infoBody.at("/git/commit").size()).isEqualTo(2);
+    assertThat(infoBody.at("/git/commit/id")).isNotNull();
+    assertThat(infoBody.at("/git/commit/time")).isNotNull();
+  }
+
+  @Test
+  public void infoShouldContainGitCommitShortId() {
+    // Then
+    assertThat(infoBody.at("/git/commit/id").asText()).matches("^\\w{7}$");
+  }
+
+  @Test
+  public void infoShouldContainGitCommitTime() {
+    // Then
+    assertThat(infoBody.at("/git/commit/time").asText())
+        .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$");
   }
 
   @Test

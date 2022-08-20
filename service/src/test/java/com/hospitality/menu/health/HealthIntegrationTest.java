@@ -15,8 +15,7 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class HealthIntegrationTest {
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;
 
@@ -31,6 +30,7 @@ public class HealthIntegrationTest {
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(response.getBody()).isEqualTo("{\"status\":\"UP\"}");
+    assertThat(response.getBody())
+        .isEqualTo("{\"status\":\"UP\",\"groups\":[\"liveness\",\"readiness\"]}");
   }
 }

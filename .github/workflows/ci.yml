@@ -21,3 +21,20 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build jacocoTestCoverageVerification
+
+      - name: Install ShellSpec
+        run: |
+          curl -fsSL https://git.io/shellspec | sh -s -- -y
+          sudo ln -s ${HOME}/.local/lib/shellspec/shellspec /usr/local/bin/shellspec
+          ls -la ${HOME}/.local/lib/shellspec
+          echo "shellspec symlink:"
+          ls -la /usr/local/bin/shellspec
+          /usr/local/bin/shellspec --version
+          which shellspec
+          shellspec --version
+
+      - name: Run ShellSpec tests
+        working-directory: ./scripts/tests
+        shell: bash -l {0}
+        run: |
+          shellspec

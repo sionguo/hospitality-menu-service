@@ -29,6 +29,10 @@ processResources {
     expand(project.properties)
 }
 
+tasks.named('bootJar') {
+    archiveClassifier = 'boot'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

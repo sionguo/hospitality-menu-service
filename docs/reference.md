@@ -20,7 +20,6 @@ Find more specific documentation in the following sections.
 * [Production-ready Features](https://docs.spring.io/spring-boot/docs/2.6.7/reference/htmlsingle/#actuator)
 
 ### Build Automation. Gradle
-* [Create an OCI images](https://docs.spring.io/spring-boot/docs/2.6.7/gradle-plugin/reference/html/#build-image)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.7/gradle-plugin/reference/html/)
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
@@ -37,6 +36,9 @@ Find more specific documentation in the following sections.
 
 ### Dependency check
 * [OWASP Dependency Check](https://owasp.org/www-project-dependency-check/)
+
+## CI/CD
+* [GitHub Actions](https://docs.github.com/en/actions)
 
 ## Environment
 ### Kubernetes

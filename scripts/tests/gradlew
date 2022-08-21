@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Fake Gradle executable
+set -euo pipefail
+echo "--Mock--[gradlew]: $*"

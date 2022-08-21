@@ -13,6 +13,15 @@ To build and run the tests for all project modules, run `./gradlew clean check`
   added once business logic is added i.e. downstream response metrics, latency metrics etc.)
 - Service Functional Tests. `./gradlew :service-functional:test`
 
+### End-to-End testing
+To be able to start the local environment, you required:
+* [Docker Engine](https://docs.docker.com/engine/install/)
+* [Minikube](https://kubernetes.io/docs/tasks/tools/)
+
+### Shell (bash files) testing
+* Uses [shellSpec](https://github.com/shellspec/shellspec)
+* Run shell tests (bash): `cd scripts/tests && shellspec`
+
 ## Static Code Analysis
 * [Checkstyle](https://checkstyle.sourceforge.io). Uses [Gradle Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html) 
 configured with [Google's Style](https://checkstyle.sourceforge.io/google_style.html)

@@ -3,8 +3,11 @@ Project to manage a menu of hospitality services such as restaurants, bar, food-
 
 ![CI](https://github.com/rauligs/hospitality-menu-service/actions/workflows/ci.yml/badge.svg)
 
-## Build project
+## Build
 To build and run the tests for all project modules, run `./gradlew clean check`
+
+## Release Service
+To release the service version, run `./gradlew :service:release -Prelease.useAutomaticVersion=true`
 
 ## Testing
 - Service Unit and Integration Tests. `./gradlew :service:test`

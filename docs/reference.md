@@ -35,6 +35,9 @@ Find more specific documentation in the following sections.
 * [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)
 * [SpotBugs](https://spotbugs.github.io/)
 
+### Dependency check
+* [OWASP Dependency Check](https://owasp.org/www-project-dependency-check/)
+
 ## Environment
 ### Kubernetes
 * [Kubernetes](https://kubernetes.io/)

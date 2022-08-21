@@ -1,19 +1,28 @@
+plugins {
+    id 'org.owasp.dependencycheck' version "${owaspPluginVersion}" apply false
+}
+
 allprojects {
-	group = 'com.hospitality.menu'
+    group = 'com.hospitality.menu'
 }
 
 subprojects {
-	apply plugin: 'pmd'
-	repositories {
-		mavenCentral()
-	}
-	pmd {
-		ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
-		ruleSets = []
-	}
+    apply plugin: 'java'
+    apply plugin: 'pmd'
+    apply plugin: 'org.owasp.dependencycheck'
+    repositories {
+        mavenCentral()
+    }
+    pmd {
+        ruleSetFiles = files("${rootProject.projectDir}/config/pmd/ruleset.xml")
+        ruleSets = []
+    }
+    // Takes a long time to analyze - to consider it running on a different job
+    // It fails: Download Failed for NVD CVE - 2006
+    // check.dependsOn(dependencyCheckAnalyze)
 }
 
 wrapper {
-	gradleVersion = '7.4.1'
-	distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = '7.4.1'
+    distributionType = Wrapper.DistributionType.ALL
 }

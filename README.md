@@ -19,6 +19,17 @@ configured with [Google's Style](https://checkstyle.sourceforge.io/google_style.
 * [PMD](https://pmd.github.io/)
 * [SpotBugs](https://spotbugs.github.io/)
 
+## OWASP Dependency check
+* Uses the [OWASP Dependency Check Project](https://owasp.org/www-project-dependency-check/)
+* Run `./gradlew dependencyCheckPurge` to delete the local copy of the NVD. This is used to force a 
+refresh of the data.
+* Run `./gradlew dependencyCheckAnalyze` to run a dependency-check against the project and generates 
+a report.
+* See other tasks at [Dependency-Check OWASP Plugin config](https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/configuration.html)
+
+**Note:** It currently fails downloading from the [NVD Data Feeds](https://nvd.nist.gov/vuln/data-feeds)
+so it is not running as part of the project Gradle _check_ task.
+
 ### IntelliJ's Checkstyle Setup
 - Add the Google Code Style for IntelliJ by adding the
 [intellij-java-google-style.xml](https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml) 

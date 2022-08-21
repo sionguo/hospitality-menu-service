@@ -1,8 +1,9 @@
 plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-    id "com.gorylenko.gradle-git-properties" version "2.4.1"
-    id "com.github.spotbugs" version "5.0.9"
+    id "com.gorylenko.gradle-git-properties" version '2.4.1'
+    id 'net.researchgate.release' version '2.8.1'
+    id "com.github.spotbugs" version '5.0.9'
     id 'jacoco'
     id 'checkstyle'
 }
@@ -23,6 +24,12 @@ dependencies {
 
 springBoot {
     buildInfo()
+}
+
+release {
+    git {
+        requireBranch = 'main'
+    }
 }
 
 processResources {

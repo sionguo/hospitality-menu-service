@@ -104,7 +104,7 @@ class InfoIntegrationTest {
   @Test
   void infoShouldContainAppVersion() {
     // Then
-    assertThat(infoBody.at("/app/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
+    assertThat(infoBody.at("/app/version").asText()).matches("^\\d.\\d.\\d(-SNAPSHOT)?$");
   }
 
   @Test
@@ -128,7 +128,7 @@ class InfoIntegrationTest {
   @Test
   void infoShouldContainBuildVersion() {
     // Then
-    assertThat(infoBody.at("/build/version").asText()).matches("^\\d.\\d.\\d-SNAPSHOT$");
+    assertThat(infoBody.at("/build/version").asText()).matches("^\\d.\\d.\\d(-SNAPSHOT)?$");
   }
 
   @Test
@@ -173,12 +173,5 @@ class InfoIntegrationTest {
     // Then
     assertThat(infoBody.at("/git/commit/time").asText())
         .matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$");
-  }
-
-  @Test
-  void infoShouldContainAppVersionSameAsBuildVersion() {
-    // Then
-    assertThat(infoBody.at("/app/version").asText())
-        .isEqualTo(infoBody.at("/build/version").asText());
   }
 }

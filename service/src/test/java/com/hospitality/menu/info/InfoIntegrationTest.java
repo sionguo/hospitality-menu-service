@@ -141,7 +141,7 @@ class InfoIntegrationTest {
   @Test
   void infoShouldContainGitBranch() {
     // Then
-    assertThat(infoBody.at("/git/branch").asText()).isEqualTo("main");
+    assertThat(infoBody.at("/git/branch").asText()).isNotBlank();
   }
 
   @Test

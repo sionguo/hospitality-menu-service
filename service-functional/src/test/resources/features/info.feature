@@ -22,6 +22,6 @@ Feature: Application Info Page
 
   Scenario: It should display the git section
     Given the application info contains 'git' node
-    And the application info git 'branch' is 'main'
+    And the application info git contains branch name
     And the application info git contains commit id
     And the application info git contains commit time
